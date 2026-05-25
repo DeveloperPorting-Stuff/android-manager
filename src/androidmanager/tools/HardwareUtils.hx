@@ -1,17 +1,22 @@
 package androidmanager.tools;
 
+#if android
+import lime.system.JNI;
+#end
+
 class HardwareUtils {
     
-    private static var _getDeviceModel:Dynamic;
-    private static var _getDeviceManufacturer:Dynamic;
+    private static var _getDeviceModel:Dynamic = null;
+    private static var _getDeviceManufacturer:Dynamic = null;
 
     /**
-     * Returns the device's hardware model.
+     * Retrieves the device hardware model.
+     * @return The model string, or "Unknown" if not on Android.
      */
     public static function getDeviceModel():String {
         #if android
         if (_getDeviceModel == null) {
-            _getDeviceModel = JNIUtils.createStaticMethod("androidmanager/java/HardwareExtension", "getDeviceModel", "()Ljava/lang/String;");
+            _getDeviceModel = JNI.createStaticMethod("androidmanager/java/HardwareExtension", "getDeviceModel", "()Ljava/lang/String;");
         }
         
         if (_getDeviceModel != null) {
@@ -23,12 +28,13 @@ class HardwareUtils {
     }
 
     /**
-     * Returns the device's hardware manufacturer.
+     * Retrieves the device manufacturer.
+     * @return The manufacturer string, or "Unknown" if not on Android.
      */
     public static function getDeviceManufacturer():String {
         #if android
         if (_getDeviceManufacturer == null) {
-            _getDeviceManufacturer = JNIUtils.createStaticMethod("androidmanager/java/HardwareExtension", "getDeviceManufacturer", "()Ljava/lang/String;");
+            _getDeviceManufacturer = JNI.createStaticMethod("androidmanager/java/HardwareExtension", "getDeviceManufacturer", "()Ljava/lang/String;");
         }
         
         if (_getDeviceManufacturer != null) {

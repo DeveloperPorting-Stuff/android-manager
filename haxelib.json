@@ -6,5 +6,9 @@
 	"contributors": [
 		"StarNovaBR"
 	],
-	"classPath": "src"
+	"classPath": "src",
+	"dependencies": {
+		"hxcpp":"",
+		"lime":""
+	}
 }
