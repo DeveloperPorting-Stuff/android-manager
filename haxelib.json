@@ -1,0 +1,10 @@
+{
+	"name": "android-manager",
+	"url": "https://github.com/DeveloperPorting-Stuff/android-manager",
+	"license": "MIT",
+	"tags": [],
+	"contributors": [
+		"StarNovaBR"
+	],
+	"classPath": "src"
+}
