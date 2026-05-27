@@ -5,42 +5,74 @@ import androidmanager.jni.JNICache;
 #end
 class Build {
     
-    /**
-     * Retrieves the device hardware model.
-     * @return The model string, or "Unknown" if not on Android.
-     */
-    public static function model():String {
+    public static var MODEL(get, never):String;
+    public static var MANUFACTURER(get, never):String;
+    public static var DEVICE(get, never):String;
+    public static var BOARD(get, never):String;
+    public static var BRAND(get, never):String;
+    public static var HARDWARE(get, never):String;
+    public static var DISPLAY(get, never):String;
+
+    private static function get_MODEL():String {
         #if android
-        var field = JNICache.getStaticField("android/os/Build", "MODEL", "Ljava/lang/String;");
-        if (field != null) return field.get(); 
-        #end
-        
+        final field:Null<Dynamic> = JNICache.getStaticField('android/os/Build', 'MODEL', 'Ljava/lang/String;');
+        return field != null ? field.get() : "Unknown";
+        #else
         return "Unknown";
+        #end
     }
 
-    /**
-     * Retrieves the device manufacturer.
-     * @return The manufacturer string, or "Unknown" if not on Android.
-     */
-    public static function manufacturer():String {
+    private static function get_MANUFACTURER():String {
         #if android
-        var field = JNICache.getStaticField('android/os/Build', 'MANUFACTURER', 'Ljava/lang/String;');
-        if (field != null) return field.get();
-        #end
-        
+        final field:Null<Dynamic> = JNICache.getStaticField('android/os/Build', 'MANUFACTURER', 'Ljava/lang/String;');
+        return field != null ? field.get() : "Unknown";
+        #else
         return "Unknown";
+        #end
     }
 
-     /**
-     * Retrieves the name of the device's industrial design.
-     * @return The design string, or "Unknown" if not on Android.
-     */
-    public static function device():String {
+    private static function get_DEVICE():String {
         #if android
-        var field = JNICache.getStaticField('android/os/Build', 'DEVICE', 'Ljava/lang/String;');
-        if (field != null) return field.get();
-        #end
-
+        final field:Null<Dynamic> = JNICache.getStaticField('android/os/Build', 'DEVICE', 'Ljava/lang/String;');
+        return field != null ? field.get() : "Unknown";
+        #else
         return "Unknown";
+        #end
+    }
+
+    private static function get_BOARD():String {
+        #if android
+        final field:Null<Dynamic> = JNICache.getStaticField('android/os/Build', 'BOARD', 'Ljava/lang/String;');
+        return field != null ? field.get() : "Unknown";
+        #else
+        return "Unknown";
+        #end
+    }
+
+    private static function get_BRAND():String {
+        #if android
+        final field:Null<Dynamic> = JNICache.getStaticField('android/os/Build', 'BRAND', 'Ljava/lang/String;');
+        return field != null ? field.get() : "Unknown";
+        #else
+        return "Unknown";
+        #end
+    }
+
+    private static function get_HARDWARE():String {
+        #if android
+        final field:Null<Dynamic> = JNICache.getStaticField('android/os/Build', 'HARDWARE', 'Ljava/lang/String;');
+        return field != null ? field.get() : "Unknown";
+        #else
+        return "Unknown";
+        #end
+    }
+
+    private static function get_DISPLAY():String {
+        #if android
+        final field:Null<Dynamic> = JNICache.getStaticField('android/os/Build', 'DISPLAY', 'Ljava/lang/String;');
+        return field != null ? field.get() : "Unknown";
+        #else
+        return "Unknown";
+        #end
     }
 }
