@@ -2,7 +2,7 @@ package;
 
 import lime.app.Application;
 #if android
-import androidmanager.tools.HardwareUtils;
+import androidmanager.os.Build;
 #end
 class Main extends Application
 {
@@ -11,10 +11,9 @@ class Main extends Application
 		super();
 
 		#if android
-		trace("Device Model" + HardwareUtils.getDeviceModel()); // just a test
-		trace("Device Manufacturer" + HardwareUtils.getDeviceManufacturer());
-		#else
-		trace("only works on Android Devices!")
+		trace("Device Model " + Build.device()); // just a test
+		trace("Device Manufacturer " + Build.model());
+		trace("Device Industrial Design " + Build.device());
 		#end
 	}
 }
