@@ -2,9 +2,18 @@
 	"name": "android-manager",
 	"url": "https://github.com/DeveloperPorting-Stuff/android-manager",
 	"license": "MIT",
-	"tags": [],
+	"tags": [
+		"android",
+		"files",
+		"java",
+		"haxe",
+		"manager"
+	],
+	"description": "A Haxe/Lime extension for android devices",
+	"version": "1.0.0",
 	"contributors": [
-		"StarNovaBR"
+		"StarNovaBR",
+		"LumiCoder"
 	],
 	"classPath": "src",
 	"dependencies": {

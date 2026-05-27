@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+	
+	<meta title="android-manager test" package="com.test.example" version="1.0.0" company="DeveloperPorting" />
+	<app main="Main" path="export" file="Android Manager Test" />
+	
+	<source path="source" />
+	
+	<haxelib name="lime" />
+	<haxelib name="android-manager"/>
+
+	<section if="cpp">
+		<haxedef name="HXCPP_CHECK_POINTER" />
+		<haxedef name="HXCPP_STACK_LINE" />
+		<haxedef name="HXCPP_STACK_TRACE" />
+	</section>
+
+</project>
