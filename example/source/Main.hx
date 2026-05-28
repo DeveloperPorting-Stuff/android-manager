@@ -1,9 +1,6 @@
 package;
 
 import lime.app.Application;
-#if android
-import androidmanager.tools.PermissionUtils;
-#end
 
 class Main extends Application
 {
@@ -12,5 +9,12 @@ class Main extends Application
     public function new()
     {
         super();
+    }
+
+   // bloco de testes
+    override public function update(deltaTime:Int):Void 
+    {
+        super.update(deltaTime);
+        
     }
 }
