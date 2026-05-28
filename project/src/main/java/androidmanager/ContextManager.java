@@ -7,10 +7,10 @@ import java.io.File;
 public class ContextManager {
 
     public static String getExternalFilesDir(String type) {
-        if (Extension.mainContext == null)
+        if (Extension.mainActivity == null)
             return null;
 
-        File dir = Extension.mainContext.getExternalFilesDir(
+        File dir = Extension.mainActivity.getExternalFilesDir(
             (type == null || type.isEmpty()) ? null : type
         );
 
@@ -21,10 +21,10 @@ public class ContextManager {
     }
 
     public static String getInternalFilesDir() {
-        if (Extension.mainContext == null)
+        if (Extension.mainActivity == null)
             return null;
 
-        File dir = Extension.mainContext.getFilesDir();
+        File dir = Extension.mainActivity.getFilesDir();
 
         if (dir != null && (dir.exists() || dir.mkdirs()))
             return dir.getAbsolutePath();
@@ -33,7 +33,6 @@ public class ContextManager {
     }
 
     public static boolean isExternalStorageAvailable() {
-        String state = Environment.getExternalStorageState();
-        return Environment.MEDIA_MOUNTED.equals(state);
+        return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
     }
 }
