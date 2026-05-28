@@ -17,7 +17,7 @@ class PermissionUtils {
     public static function hasPermission(permission:String):Bool {
         #if android
         if (_hasPermission == null) {
-            _hasPermission = JNI.createStaticMethod("androidmanager/java/PermissionManager", "hasPermission", "(Ljava/lang/String;)Z");
+            _hasPermission = JNI.createStaticMethod("androidmanager/PermissionManager", "hasPermission", "(Ljava/lang/String;)Z");
         }
         
         if (_hasPermission != null) {
@@ -34,7 +34,7 @@ class PermissionUtils {
     public static function requestPermission(permission:String):Void {
         #if android
         if (_requestPermission == null) {
-            _requestPermission = JNI.createStaticMethod("androidmanager/java/PermissionManager", "requestPermission", "(Ljava/lang/String;)V");
+            _requestPermission = JNI.createStaticMethod("androidmanager/PermissionManager", "requestPermission", "(Ljava/lang/String;)V");
         }
         
         if (_requestPermission != null) {

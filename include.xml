@@ -5,7 +5,7 @@
 	xsi:schemaLocation="http://lime.openfl.org/project/1.0.4 http://lime.openfl.org/xsd/project-1.0.4.xsd">
 
 	<section if="android">
-		<java path="project/src/main/java/androidmanager/java" /> 
+		<java path="project/src/main/java" />
 		<dependency name="androidx.core:core:1.9.0" />
 	</section>
 </extension>

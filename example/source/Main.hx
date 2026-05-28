@@ -10,11 +10,4 @@ class Main extends Application
     {
         super();
     }
-
-   // bloco de testes
-    override public function update(deltaTime:Int):Void 
-    {
-        super.update(deltaTime);
-        
-    }
 }

@@ -1,4 +1,4 @@
-package androidmanager;
+package java.androidmanager;
 
 import android.os.Environment;
 import org.haxe.extension.Extension;
