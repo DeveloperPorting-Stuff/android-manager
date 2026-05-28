@@ -4,8 +4,9 @@ package androidmanager.os;
 import androidmanager.jni.JNICache;
 #end
 
-/**
+ /**
  * Information about the current build, extracted from system properties.
+ * * @see https://developer.android.com/reference/android/os/Build
  */
 class Build {
     
@@ -236,6 +237,7 @@ class Build {
 }
 /**
  * Various version strings and numbers extracted from system properties.
+ * * @see https://developer.android.com/reference/android/os/Build.VERSION
  */
 class VERSION {
     

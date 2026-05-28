@@ -7,6 +7,7 @@ import lime.system.JNI;
 
 /**
  * Provides access to environment variables and standard directories.
+ * * @see https://developer.android.com/reference/android/os/Environment
  */
 class Environment {
     
