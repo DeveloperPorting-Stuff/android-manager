@@ -16,7 +16,7 @@ class Context {
         #if android
         if (_getExternalFilesDir == null)
             _getExternalFilesDir = JNI.createStaticMethod(
-                "java/androidmanager/ContextManager",
+                "androidmanager/ContextManager",
                 "getExternalFilesDir",
                 "(Ljava/lang/String;)Ljava/lang/String;"
             );
@@ -35,7 +35,7 @@ class Context {
         #if android
         if (_getInternalFilesDir == null)
             _getInternalFilesDir = JNI.createStaticMethod(
-                "java/androidmanager/ContextManager",
+                "androidmanager/ContextManager",
                 "getInternalFilesDir",
                 "()Ljava/lang/String;"
             );
@@ -50,7 +50,7 @@ class Context {
         #if android
         if (_isExternalStorageAvailable == null)
             _isExternalStorageAvailable = JNI.createStaticMethod(
-                "java/androidmanager/ContextManager",
+                "androidmanager/ContextManager",
                 "isExternalStorageAvailable",
                 "()Z"
             );
