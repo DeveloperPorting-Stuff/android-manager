@@ -14,5 +14,5 @@
 		<haxedef name="HXCPP_STACK_LINE" />
 		<haxedef name="HXCPP_STACK_TRACE" />
 	</section>
-	
+	<config:android permission="android.permission.READ_EXTERNAL_STORAGE" />
 </project>
