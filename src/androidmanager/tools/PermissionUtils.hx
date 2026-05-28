@@ -7,6 +7,7 @@ import androidmanager.jni.JNICache;
 /**
  * Utility class for managing Android permissions via JNI.
  * Allows checking and requesting runtime permissions on Android devices.
+ * @see https://developer.android.com/guide/topics/permissions/overview
  */
 class PermissionUtils {
 
