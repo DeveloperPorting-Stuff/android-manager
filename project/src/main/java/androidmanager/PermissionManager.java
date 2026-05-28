@@ -1,4 +1,4 @@
-package androidmanager;
+package java.androidmanager;
 
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -15,7 +15,6 @@ public class PermissionManager {
         if (Build.VERSION.SDK_INT >= 23) {
             return Extension.mainContext.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED;
         }
-        
         return true;
     }
 
