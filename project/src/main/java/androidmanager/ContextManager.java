@@ -1,21 +1,39 @@
-package androidmanager.java;
+package androidmanager;
 
+import android.os.Environment;
 import org.haxe.extension.Extension;
 import java.io.File;
 
 public class ContextManager {
 
     public static String getExternalFilesDir(String type) {
-        if (Extension.mainContext == null) {
-            return "Error: Context not ready.";
-        }
-        
-        File dir = Extension.mainContext.getExternalFilesDir(type);
-        
-        if (dir != null) {
+        if (Extension.mainContext == null)
+            return null;
+
+        File dir = Extension.mainContext.getExternalFilesDir(
+            (type == null || type.isEmpty()) ? null : type
+        );
+
+        if (dir != null && (dir.exists() || dir.mkdirs()))
             return dir.getAbsolutePath();
-        }
-        
-        return "Unknown";
+
+        return null;
+    }
+
+    public static String getInternalFilesDir() {
+        if (Extension.mainContext == null)
+            return null;
+
+        File dir = Extension.mainContext.getFilesDir();
+
+        if (dir != null && (dir.exists() || dir.mkdirs()))
+            return dir.getAbsolutePath();
+
+        return null;
+    }
+
+    public static boolean isExternalStorageAvailable() {
+        String state = Environment.getExternalStorageState();
+        return Environment.MEDIA_MOUNTED.equals(state);
     }
 }
