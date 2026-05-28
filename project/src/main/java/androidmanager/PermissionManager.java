@@ -32,4 +32,35 @@ public class PermissionManager {
             }
         });
     }
+
+    public static void requestPermissions(final String[] permissions) {
+        if (Extension.mainActivity == null || permissions == null || permissions.length == 0)
+            return;
+
+        Extension.mainActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ActivityCompat.requestPermissions(
+                    Extension.mainActivity,
+                    permissions,
+                    REQUEST_CODE
+                );
+            }
+        });
+    }
+
+    public static boolean hasPermissions(String[] permissions) {
+        if (Extension.mainActivity == null || permissions == null)
+            return false;
+
+        for (String permission : permissions) {
+            if (permission == null)
+                continue;
+            if (ContextCompat.checkSelfPermission(Extension.mainActivity, permission)
+                    != PackageManager.PERMISSION_GRANTED)
+                return false;
+        }
+
+        return true;
+    }
 }
