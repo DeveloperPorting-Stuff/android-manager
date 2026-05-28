@@ -1,4 +1,4 @@
-package androidmanager;
+package java.androidmanager;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -8,12 +8,13 @@ import android.os.BatteryManager;
 import android.os.Build;
 import org.haxe.extension.Extension;
 import org.haxe.lime.HaxeObject;
+import android.os.BatteryManager;
 
-public class BatteryManagerExt extends Extension {
+public class Battery extends Extension {
 
     private static final String ACTION_BATTERY_CHANGED = Intent.ACTION_BATTERY_CHANGED;
 
-    private static BatteryManagerExt _instance = null;
+    private static Battery _instance = null;
     private static HaxeObject _batteryCallback = null;
     private static BroadcastReceiver _receiver = null;
     private static boolean _listening = false;
@@ -22,8 +23,7 @@ public class BatteryManagerExt extends Extension {
         if (_instance != null)
             return;
 
-        _instance = new BatteryManagerExt();
-        Extension.registeredExtensions.add(_instance);
+        _instance = new Battery();
     }
 
     public static void setCallback(HaxeObject callback) {
@@ -109,16 +109,16 @@ public class BatteryManagerExt extends Extension {
             || status == BatteryManager.BATTERY_STATUS_FULL;
     }
 
-    public static boolean isLow() {
+   public static boolean isLow() {
         int level = getLevel();
         if (level == -1)
             return false;
 
-        if (Build.VERSION.SDK_INT >= 28 && Extension.mainActivity != null) {
+        if (Build.VERSION.SDK_INT >= 23 && Extension.mainActivity != null) {
             android.os.PowerManager pm = (android.os.PowerManager)
                 Extension.mainActivity.getSystemService(Context.POWER_SERVICE);
             if (pm != null)
-                return pm.isDeviceLightIdleMode() || level <= 15;
+                return pm.isDeviceIdleMode() || level <= 15;
         }
 
         return level <= 15;
