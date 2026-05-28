@@ -16,4 +16,5 @@
 	</section>
 	<config:android permission="android.permission.READ_EXTERNAL_STORAGE" />
     <config:android permission="android.permission.WRITE_EXTERNAL_STORAGE" />
+	
 </project>

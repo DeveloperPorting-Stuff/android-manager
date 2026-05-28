@@ -10,4 +10,10 @@ class Main extends Application
     {
         super();
     }
+
+    override public function update(deltaTime:Int):Void 
+    {
+        super.update(deltaTime);
+
+    }
 }
