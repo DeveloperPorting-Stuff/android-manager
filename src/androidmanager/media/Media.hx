@@ -16,7 +16,9 @@ class Media {
 
     #if android
     private static var _hasPermission:Dynamic = null;
+    private static var _hasPermissions:Dynamic = null;
     private static var _requestPermission:Dynamic = null;
+    private static var _requestPermissions:Dynamic = null;
     #end
 
     public static function hasPermission(type:MediaType):Bool {
@@ -49,9 +51,18 @@ class Media {
 
     public static function hasAll():Bool {
         #if android
-        return hasPermission(Images)
-            && hasPermission(Video)
-            && hasPermission(Audio);
+        if (_hasPermissions == null)
+            _hasPermissions = JNI.createStaticMethod(
+                "androidmanager/PermissionManager",
+                "hasPermissions",
+                "([Ljava/lang/String;)Z"
+            );
+
+        return _hasPermissions([
+            (Images : String),
+            (Video : String),
+            (Audio : String)
+        ]);
         #else
         return false;
         #end
@@ -59,9 +70,18 @@ class Media {
 
     public static function requestAll():Void {
         #if android
-        requestPermission(Images);
-        requestPermission(Video);
-        requestPermission(Audio);
+        if (_requestPermissions == null)
+            _requestPermissions = JNI.createStaticMethod(
+                "androidmanager/PermissionManager",
+                "requestPermissions",
+                "([Ljava/lang/String;)V"
+            );
+
+        _requestPermissions([
+            (Images : String),
+            (Video : String),
+            (Audio : String)
+        ]);
         #end
     }
 }
