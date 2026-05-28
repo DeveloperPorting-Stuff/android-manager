@@ -2,7 +2,7 @@ package androidmanager.tools;
 
 #if android
 import lime.system.JNI;
-#endif
+#end
 
 class PermissionUtils {
     
