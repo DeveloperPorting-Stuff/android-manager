@@ -9,6 +9,7 @@ public class PermissionManager {
 
     /**
      * Checks if a specific Android permission has been granted.
+     * Reading state can be done on any thread, so no changes needed here.
      * @param permission The permission string (e.g., "android.permission.READ_EXTERNAL_STORAGE")
      * @return true if granted, false otherwise.
      */
@@ -23,14 +24,20 @@ public class PermissionManager {
 
     /**
      * Requests a specific Android permission from the user.
+     * This MUST be run on the UI thread, otherwise the dialog won't show.
      * @param permission The permission string to request.
      */
-    public static void requestPermission(String permission) {
+    public static void requestPermission(final String permission) {
         if (Extension.mainActivity == null) {
             return;
         }
 
-        String[] permissionsArray = new String[]{ permission };
-        ActivityCompat.requestPermissions(Extension.mainActivity, permissionsArray, 1024);
+        Extension.mainActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                String[] permissionsArray = new String[]{ permission };
+                ActivityCompat.requestPermissions(Extension.mainActivity, permissionsArray, 1024);
+            }
+        });
     }
 }
