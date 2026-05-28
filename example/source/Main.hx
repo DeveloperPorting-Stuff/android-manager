@@ -2,7 +2,7 @@ package;
 
 import lime.app.Application;
 #if android
-import androidmanager.os.Build;
+import androidmanager.tools.PermissionUtils;
 #end
 
 class Main extends Application

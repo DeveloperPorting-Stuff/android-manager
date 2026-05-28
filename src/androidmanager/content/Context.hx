@@ -2,7 +2,6 @@ package androidmanager.content;
 
 #if android
 import lime.system.JNI;
-import androidmanager.jni.JNICache;
 #end
 
 /**
@@ -11,7 +10,9 @@ import androidmanager.jni.JNICache;
  */
 class Context {
 
-   /**
+    private static var _getExternalFilesDir:Dynamic = null;
+
+    /**
      * Returns the absolute path to the directory on the primary shared/external 
      * storage device where the application can place persistent files it owns.
      * (e.g., "/storage/emulated/0/Android/data/com.your.package/files")
@@ -20,13 +21,27 @@ class Context {
      */
     public static function getExternalFilesDir(type:String = null):String {
         #if android
-        try {
-            return "in dev...";
-        } catch(e:Dynamic) {
-            return "Error: " + e;
+        if (_getExternalFilesDir == null) {
+            try {
+                _getExternalFilesDir = JNI.createStaticMethod("androidmanager/java/ContextManager", "getExternalFilesDir", "(Ljava/lang/String;)Ljava/lang/String;");
+            } catch(e:Dynamic) {
+                return "JNI Error " + e;
+            }
         }
+        
+        if (_getExternalFilesDir != null) {
+            try {
+                var path:String = _getExternalFilesDir(type);
+                return (path != null) ? path : "Unknown";
+            } catch (e:Dynamic) {
+                return "Error while executing JNI: " + e;
+            }
+        }
+        
+        return "Unknown";
         #else
         return "Unknown";
         #end
     }
+
 }
