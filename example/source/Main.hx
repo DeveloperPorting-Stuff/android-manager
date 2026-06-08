@@ -1,17 +1,17 @@
 package;
 
-import lime.app.Application;
-class Main extends Application
-{
-    private var isFirstFrame:Bool = true;
+import openfl.display.Sprite;
+import androidmanager.os.Platform;
 
+class Main extends Sprite
+{
     public function new()
     {
         super();
-    }
-
-    override public function update(deltaTime:Int):Void 
-    {
-        super.update(deltaTime);
+        
+        try {
+            Platform.requestSetting("WIFI_SETTINGS");
+        } catch(e:Dynamic) { // love stars
+        }
     }
 }
