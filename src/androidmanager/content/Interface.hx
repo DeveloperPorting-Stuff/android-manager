@@ -49,7 +49,7 @@ class Interface {
      * If it does not start with 'android.settings.', it will be prefixed automatically.
      * @param code The unique request code associated with the intent.
      */
-    public static function openSettings(action:String, code:Int = 1):Void {
+    public static function requestSetting(action:String, code:Int = 1):Void {
         var jni:Dynamic = JNICache.getStaticMethod("java/androidmanager/Interface", "navigate", "(Ljava/lang/String;I)V");
         
         if (jni != null) {
