@@ -24,6 +24,25 @@ class Interface {
             jni(title, msg, btn, new NativeCallback(onClose));
     }
 
+   /**
+     * Displays a native Android confirmation dialog with two buttons.
+     * This method bridges the request to the Android native side, maintaining 
+     * Haxe-side callbacks for both confirmation and cancellation actions.
+     * * @param title The title text of the dialog window.
+     * @param msg The message body text.
+     * @param yesLabel The label for the positive (confirm) button.
+     * @param noLabel The label for the negative (cancel) button.
+     * @param onYes The callback function to be executed upon clicking the positive button.
+     * @param onNo The optional callback function to be executed upon clicking the negative button.
+     */
+    public static function showConfirm(title:String, msg:String, yesLabel:String, noLabel:String, onYes:Void->Void, ?onNo:Void->Void):Void {
+        var jni:Dynamic = JNICache.getStaticMethod("java/androidmanager/Interface", "confirm", 
+            "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lorg/haxe/lime/HaxeObject;Lorg/haxe/lime/HaxeObject;)V");
+        
+        if (jni != null) 
+            jni(title, msg, yesLabel, noLabel, new NativeCallback(onYes), new NativeCallback(onNo));
+    }
+
     /**
      * Navigates the user to a specific Android system settings menu.
      * * @param action The name of the settings intent action. 

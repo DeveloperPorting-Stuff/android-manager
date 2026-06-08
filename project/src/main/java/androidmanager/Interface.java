@@ -26,6 +26,28 @@ public class Interface extends Extension {
     });
 }
 
+public static void confirm(final String title, final String msg, final String yes, final String no, final HaxeObject onYes, final HaxeObject onNo) {
+    mainActivity.runOnUiThread(new Runnable() {
+        @Override
+        public void run() {
+            AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity, android.R.style.Theme_DeviceDefault_Dialog_Alert);
+            builder.setTitle(title);
+            builder.setMessage(msg);
+            
+            builder.setPositiveButton(yes, (dialog, which) -> {
+                if (onYes != null) onYes.call("onTrigger", new Object[]{});
+            });
+            
+            builder.setNegativeButton(no, (dialog, which) -> {
+                if (onNo != null) onNo.call("onTrigger", new Object[]{});
+            });
+            
+            builder.setCancelable(false);
+            builder.show();
+        }
+    });
+}
+
 public static void navigate(final String action, final int code) {
       mainActivity.runOnUiThread(() -> {
             try {
