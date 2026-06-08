@@ -21,7 +21,7 @@ public class Platform extends Extension {
             Context context = Extension.mainContext;
 
             if (context == null) {
-                Log.e(LOG_TAG, "Erro: O mainContext do Lime está nulo.");
+                Log.e(LOG_TAG, "Error: main context null.");
                 return null;
             }
 
@@ -65,7 +65,7 @@ public class Platform extends Extension {
             return Base64.encodeToString(byteArray, Base64.NO_WRAP);
             
         } catch (Exception e) {
-            Log.e(LOG_TAG, "Erro ao processar wallpaper: " + e.toString()); 
+            Log.e(LOG_TAG, "Error processing wallpaper: " + e.toString()); 
             return null;
         }
     }
