@@ -1,7 +1,6 @@
 package;
 
 import openfl.display.Sprite;
-import androidmanager.os.Platform;
 
 class Main extends Sprite
 {
@@ -9,9 +8,5 @@ class Main extends Sprite
     {
         super();
         
-        try {
-            Platform.requestSetting("WIFI_SETTINGS");
-        } catch(e:Dynamic) { // love stars
-        }
     }
 }

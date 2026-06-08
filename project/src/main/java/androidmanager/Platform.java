@@ -72,28 +72,4 @@ public class Platform extends Extension {
             return null;
         }
     }
-
-    public static void openSettingsMenu(String actionName, int reqCode) {
-        if (mainActivity == null) return;
-        try {
-            Intent configIntent = new Intent(actionName);
-            
-            boolean isStorageManage = actionName.equals("android.settings.MANAGE_APP_ALL_FILES_ACCESS_PERMISSION");
-            
-            if (isStorageManage && mainContext != null) {
-                String appPackage = "package:" + mainContext.getPackageName();
-                configIntent.setData(Uri.parse(appPackage));
-            }
-            mainActivity.startActivityForResult(configIntent, reqCode);
-            
-        } catch (Exception exception) {
-            Log.w(LOG_TAG, "Action not supported, opening main settings.");
-            try {
-                Intent fallback = new Intent(Settings.ACTION_SETTINGS);
-                mainActivity.startActivityForResult(fallback, reqCode);
-            } catch (Exception fatalError) {
-                fatalError.printStackTrace();
-            }
-        }
-    }
 }

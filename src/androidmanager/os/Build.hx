@@ -340,3 +340,44 @@ class VERSION {
         #end
     }
 }
+
+/**
+ * Provides access to the official Android SDK version codes.
+ */
+class VERSION_CODES {
+    public static inline var BASE = 1;
+    public static inline var BASE_1_1 = 2;
+    public static inline var CUPCAKE = 3;
+    public static inline var DONUT = 4;
+    public static inline var ECLAIR = 5;
+    public static inline var ECLAIR_0_1 = 6;
+    public static inline var ECLAIR_MR1 = 7;
+    public static inline var FROYO = 8;
+    public static inline var GINGERBREAD = 9;
+    public static inline var GINGERBREAD_MR1 = 10;
+    public static inline var HONEYCOMB = 11;
+    public static inline var HONEYCOMB_MR1 = 12;
+    public static inline var HONEYCOMB_MR2 = 13;
+    public static inline var ICE_CREAM_SANDWICH = 14;
+    public static inline var ICE_CREAM_SANDWICH_MR1 = 15;
+    public static inline var JELLY_BEAN = 16;
+    public static inline var JELLY_BEAN_MR1 = 17;
+    public static inline var JELLY_BEAN_MR2 = 18;
+    public static inline var KITKAT = 19;
+    public static inline var KITKAT_WATCH = 20;
+    public static inline var LOLLIPOP = 21;
+    public static inline var LOLLIPOP_MR1 = 22;
+    public static inline var M = 23;
+    public static inline var N = 24;
+    public static inline var N_MR1 = 25;
+    public static inline var O = 26;
+    public static inline var O_MR1 = 27;
+    public static inline var P = 28;
+    public static inline var Q = 29;
+    public static inline var R = 30;
+    public static inline var S = 31;
+    public static inline var S_V2 = 32;
+    public static inline var TIRAMISU = 33;
+    public static inline var UPSIDE_DOWN_CAKE = 34;
+    public static inline var VANILLA_ICE_CREAM = 35;
+}
