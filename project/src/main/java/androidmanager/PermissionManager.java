@@ -9,54 +9,20 @@ public class PermissionManager {
     private static final int REQUEST_CODE = 1024;
 
     public static boolean hasPermission(String permission) {
-        if (Extension.mainActivity == null || permission == null)
+        if (Extension.mainContext == null || permission == null)
             return false;
 
-        if (Build.VERSION.SDK_INT >= 23) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             return Extension.mainContext.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED;
         }
         return true;
     }
 
-    public static void requestPermission(final String permission) {
-        if (Extension.mainActivity == null || permission == null)
-            return;
-
-        if (Build.VERSION.SDK_INT >= 23) {
-            Extension.mainActivity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Extension.mainActivity.requestPermissions(
-                        new String[]{ permission },
-                        REQUEST_CODE
-                    );
-                }
-            });
-        }
-    }
-
-    public static void requestPermissions(final String[] permissions) {
-        if (Extension.mainActivity == null || permissions == null || permissions.length == 0)
-            return;
-
-        if (Build.VERSION.SDK_INT >= 23) {
-            Extension.mainActivity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Extension.mainActivity.requestPermissions(
-                        permissions,
-                        REQUEST_CODE
-                    );
-                }
-            });
-        }
-    }
-
     public static boolean hasPermissions(String[] permissions) {
-        if (Extension.mainActivity == null || permissions == null)
+        if (Extension.mainContext == null || permissions == null || permissions.length == 0)
             return false;
 
-        if (Build.VERSION.SDK_INT >= 23) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             for (String permission : permissions) {
                 if (permission == null)
                     continue;
@@ -67,5 +33,29 @@ public class PermissionManager {
         }
 
         return true;
+    }
+
+    public static void requestPermission(final String permission) {
+        if (permission == null)
+            return;
+            
+        requestPermissions(new String[]{ permission });
+    }
+
+    public static void requestPermissions(final String[] permissions) {
+        if (Extension.mainActivity == null || permissions == null || permissions.length == 0)
+            return;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Extension.mainActivity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Extension.mainActivity.requestPermissions(
+                        permissions,
+                        REQUEST_CODE
+                    );
+                }
+            });
+        }
     }
 }

@@ -16,6 +16,11 @@ class PermissionUtils {
     private static var _requestPermission:Dynamic = null;
     private static var _hasPermissions:Dynamic = null;
     private static var _requestPermissions:Dynamic = null;
+
+    private static function formatPermission(permission:String):String {
+        if (permission.indexOf("android.permission.") == 0) return permission;
+        return "android.permission." + permission;
+    }
     #end
 
     /**
@@ -25,6 +30,7 @@ class PermissionUtils {
      */
     public static function hasPermission(permission:String):Bool {
         #if android
+        permission = formatPermission(permission);
         if (_hasPermission == null) {
             try {
                 _hasPermission = JNICache.getStaticMethod("java/androidmanager/PermissionManager", "hasPermission", "(Ljava/lang/String;)Z");
@@ -45,6 +51,7 @@ class PermissionUtils {
      */
     public static function requestPermission(permission:String):Void {
         #if android
+        permission = formatPermission(permission);
         if (_requestPermission == null) {
             try {
                 _requestPermission = JNICache.getStaticMethod("java/androidmanager/PermissionManager", "requestPermission", "(Ljava/lang/String;)V");
@@ -64,6 +71,12 @@ class PermissionUtils {
      */
     public static function hasPermissions(permissions:Array<String>):Bool {
         #if android
+        var formattedPermissions = [];
+        for (p in permissions) {
+            formattedPermissions.push(formatPermission(p));
+        }
+        permissions = formattedPermissions;
+
         if (_hasPermissions == null) {
             try {
                 _hasPermissions = JNICache.getStaticMethod("java/androidmanager/PermissionManager", "hasPermissions", "([Ljava/lang/String;)Z");
@@ -84,6 +97,12 @@ class PermissionUtils {
      */
     public static function requestPermissions(permissions:Array<String>):Void {
         #if android
+        var formattedPermissions = [];
+        for (p in permissions) {
+            formattedPermissions.push(formatPermission(p));
+        }
+        permissions = formattedPermissions;
+
         if (_requestPermissions == null) {
             try {
                 _requestPermissions = JNICache.getStaticMethod("java/androidmanager/PermissionManager", "requestPermissions", "([Ljava/lang/String;)V");
