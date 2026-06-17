@@ -17,6 +17,11 @@ class PermissionUtils {
     private static var _hasPermissions:Dynamic = null;
     private static var _requestPermissions:Dynamic = null;
 
+   /**
+     * Returns the format that Android understands
+     * * @param permission The permission that must be returned in the correct format
+     * @return Returns the correct format
+     */
     private static function formatPermission(permission:String):String {
         if (permission.indexOf("android.permission.") == 0) return permission;
         return "android.permission." + permission;
