@@ -2,6 +2,7 @@
 	"name": "android-manager",
 	"url": "https://github.com/DeveloperPorting-Stuff/android-manager",
 	"license": "MIT",
+	"releasenote": "Some bug fixes, and the readme now has more information",
 	"tags": [
 		"android",
 		"files",
@@ -10,11 +11,10 @@
 		"manager"
 	],
 	"description": "A Haxe/Lime extension for android devices",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"contributors": [
-		"StarNovaBR",
 		"LumiCoder",
-		"Brenninho"
+		"StarNovaBR"
 	],
 	"classPath": "src",
 	"dependencies": {
