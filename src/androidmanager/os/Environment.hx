@@ -6,6 +6,19 @@ import lime.system.JNI;
 #end
 
 /**
+ * Standard Logcat filter levels on Android.
+ */
+enum abstract LogLevel(String) to String {
+    var VERBOSE = "V";
+    var DEBUG = "D";
+    var INFO = "I";
+    var WARN = "W";
+    var ERROR = "E";
+    var FATAL = "F";
+    var SILENT = "S";
+}
+
+/**
  * Provides access to environment variables and standard directories.
  * * @see https://developer.android.com/reference/android/os/Environment
  */
@@ -300,7 +313,7 @@ class Environment {
      */
     public static function getExternalStorageState():String {
         #if android
-        var func = androidmanager.jni.JNICache.getStaticMethod("android/os/Environment", "getExternalStorageState", "()Ljava/lang/String;");
+        var func = JNICache.getStaticMethod("android/os/Environment", "getExternalStorageState", "()Ljava/lang/String;");
         return func != null ? func() : "unknown";
         #else
         return "unknown";
@@ -335,6 +348,36 @@ class Environment {
         return func != null ? func() : false;
         #else
         return false;
+        #end
+    }
+
+   /**
+     * Reads the Android logcat with the specified filter.
+     * @param level The minimum log level (e.g., LogLevel.ERROR). Default is DEBUG.
+     * @param tag The specific tag to filter (e.g., "haxe", "lime"). Default is "*" (all).
+     * @return The complete logcat text.
+     */
+    public static function dumpSystemLogs(level:LogLevel = DEBUG, tag:String = "*"):String {
+        #if android
+        try {
+            var filter = tag == "*" ? '*:$level' : '$tag:$level *:S';
+            
+            var process = new sys.io.Process("logcat", ["-d", "-v", "threadtime", filter]);
+            
+            var output = process.stdout.readAll().toString();
+            var errorOutput = process.stderr.readAll().toString();
+            process.close();
+
+            if (output.length == 0 && errorOutput.length > 0) {
+                return "Error in logcat command: " + errorOutput;
+            }
+
+            return output;
+        } catch(e:Dynamic) {
+            return "Error trying to read logcat: " + e;
+        }
+        #else
+        return "Unknown";
         #end
     }
 }
