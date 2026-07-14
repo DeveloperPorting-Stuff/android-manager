@@ -8,7 +8,6 @@
 	
 	<haxelib name="lime" />
 	<haxelib name="openfl" />
-	<haxelib name="android-manager"/>
 
 	<section if="cpp">
 		<haxedef name="HXCPP_CHECK_POINTER" />
