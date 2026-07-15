@@ -1,7 +1,7 @@
 ## Android Manager
 
 ![RepoSize](https://img.shields.io/github/repo-size/DeveloperPorting-Stuff/android-manager
-) ![Discord](https://img.shields.io/discord/1427270980719345764?logo=discord&color=blue)
+) ![Discord](https://img.shields.io/discord/1518622560214978620?logo=discord&color=blue)
  ![Licença MIT](https://img.shields.io/badge/license-MIT-green)
 
 ![Android-Manager](https://raw.githubusercontent.com/DeveloperPorting-Stuff/android-manager/refs/heads/main/docs/logo.png)
