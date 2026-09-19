@@ -7,49 +7,17 @@ import androidmanager.jni.JNICache;
 /**
  * Interface to global information about an application environment.
  * This class is intentionally left empty. Use the nested `Storage` and `App` classes below.
- *  @see https://developer.android.com/reference/android/content/Context
+ * @see https://developer.android.com/reference/android/content/Context
  */
-
 class Context {
-
-    /**
-     * Returns the absolute path to the directory on the primary shared/external 
-     * storage device where the application can place persistent files it owns.
-     * * @param type The type of files directory to return (e.g., "Music", "Download"). 
-     * Pass null or an empty string for the root files directory.
-     * @return The absolute path of the directory, or the internal path if external is unavailable.
-     */
-    public static function getExternalFilesDir(type:String = null):Null<String> {
-        #if android
-        var func = JNICache.getStaticMethod(
-            "java/androidmanager/ContextManager$Storage", 
-            "getExternalFilesDir",
-            "(Ljava/lang/String;)Ljava/lang/String;"
-        );
-
-        if (func != null) {
-            var path:Null<String> = func(type == null ? "" : type);
-            if (path != null) return path;
-        }
-        return getInternalFilesDir();
-        #else
-        return null;
-        #end
-    }
-
     /**
      * Returns the absolute path to the directory on the filesystem where files 
      * created with openFileOutput(String, int) are stored. This is internal private storage.
-     * * @return The absolute path to the internal files directory, or null if unavailable.
      */
-
-    public static function getInternalFilesDir():Null<String> {
+    public static var internalFilesDir(get, never):Null<String>;
+    private static function get_internalFilesDir():Null<String> {
         #if android
-        var func = JNICache.getStaticMethod(
-            "java/androidmanager/ContextManager$Storage",
-            "getInternalFilesDir",
-            "()Ljava/lang/String;"
-        );
+        var func = JNICache.getStaticMethod("java/androidmanager/ContextManager$Storage", "getInternalFilesDir", "()Ljava/lang/String;");
         return func != null ? func() : null;
         #else
         return null;
@@ -58,16 +26,11 @@ class Context {
 
     /**
      * Returns the absolute path to the application specific cache directory on the filesystem.
-     * The system will automatically delete files in this directory as disk space is needed elsewhere on the device.
-     * * @return The absolute path to the cache directory, or null if unavailable.
      */
-    public static function getCacheDir():Null<String> {
+    public static var cacheDir(get, never):Null<String>;
+    private static function get_cacheDir():Null<String> {
         #if android
-        var func = JNICache.getStaticMethod(
-            "java/androidmanager/ContextManager$Storage",
-            "getCacheDir",
-            "()Ljava/lang/String;"
-        );
+        var func = JNICache.getStaticMethod("java/androidmanager/ContextManager$Storage", "getCacheDir", "()Ljava/lang/String;");
         return func != null ? func() : null;
         #else
         return null;
@@ -77,15 +40,11 @@ class Context {
     /**
      * Returns the absolute path to the primary shared/external storage directory where 
      * the application's OBB files (if there are any) can be found.
-     * * @return The absolute path to the OBB directory, or null if unavailable.
      */
-    public static function getObbDir():Null<String> {
+    public static var obbDir(get, never):Null<String>;
+    private static function get_obbDir():Null<String> {
         #if android
-        var func = JNICache.getStaticMethod(
-            "java/androidmanager/ContextManager$Storage",
-            "getObbDir",
-            "()Ljava/lang/String;"
-        );
+        var func = JNICache.getStaticMethod("java/androidmanager/ContextManager$Storage", "getObbDir", "()Ljava/lang/String;");
         return func != null ? func() : null;
         #else
         return null;
@@ -93,16 +52,24 @@ class Context {
     }
 
     /**
-     * Checks whether the primary external storage is available for reading and writing.
-     * * @return True if external storage is mounted and writable, false otherwise.
+     * Returns the absolute path to the primary shared/external storage directory where 
+     * the application's external data (Android/data/com.package.name) is stored.
      */
-    public static function isExternalStorageAvailable():Bool {
+    public static var externalDataDir(get, never):Null<String>;
+    private static function get_externalDataDir():Null<String> {
+        var obb = obbDir;
+        if (obb != null) return StringTools.replace(obb, "/obb/", "/data/");
+        
+        return null;
+    }
+
+    /**
+     * Checks whether the primary external storage is available for reading and writing.
+     */
+    public static var externalStorageAvailable(get, never):Bool;
+    private static function get_externalStorageAvailable():Bool {
         #if android
-        var func = JNICache.getStaticMethod(
-            "java/androidmanager/ContextManager$Storage",
-            "isExternalStorageAvailable",
-            "()Z"
-        );
+        var func = JNICache.getStaticMethod("java/androidmanager/ContextManager$Storage", "isExternalStorageAvailable", "()Z");
         return func != null ? func() : false;
         #else
         return false;
@@ -113,27 +80,74 @@ class Context {
      * Returns the absolute path to the directory on the filesystem where files 
      * are stored. This is internal private storage.
      */
-    public static function getDataDir():String {
+    public static var dataDir(get, never):String;
+    private static function get_dataDir():String {
+        #if android
         var func = JNICache.getStaticMethod("java/androidmanager/ContextManager$Storage", "getDataDir", "()Ljava/lang/String;");
         return func != null ? func() : "";
+        #else
+        return "";
+        #end
     }
 
     /**
      * Returns the absolute path to the directory on the filesystem where all 
      * private files belonging to this app are stored.
      */
-    public static function getCodeCacheDir():String {
+    public static var codeCacheDir(get, never):String;
+    private static function get_codeCacheDir():String {
+        #if android
         var func = JNICache.getStaticMethod("java/androidmanager/ContextManager$Storage", "getCodeCacheDir", "()Ljava/lang/String;");
         return func != null ? func() : "";
+        #else
+        return "";
+        #end
     }
 
     /**
      * Returns the absolute path to a directory on the filesystem where files 
      * created by the app should be stored and will NOT be automatically backed up.
      */
-    public static function getNoBackupFilesDir():String {
+    public static var noBackupFilesDir(get, never):String;
+    private static function get_noBackupFilesDir():String {
+        #if android
         var func = JNICache.getStaticMethod("java/androidmanager/ContextManager$Storage", "getNoBackupFilesDir", "()Ljava/lang/String;");
         return func != null ? func() : "";
+        #else
+        return "";
+        #end
+    }
+
+    /**
+     * Returns absolute paths to application-specific directories on all external storage devices.
+     */
+    public static var externalCacheDirs(get, never):Array<String>;
+    private static function get_externalCacheDirs():Array<String> {
+        #if android
+        var func = JNICache.getStaticMethod("java/androidmanager/ContextManager$Storage", "getExternalCacheDirs", "()Ljava/lang/String;");
+        var res:String = func != null ? func() : "";
+        return res == "" ? [] : res.split(";");
+        #else
+        return [];
+        #end
+    }
+
+    /**
+     * Returns the absolute path to the directory on the primary shared/external 
+     * storage device where the application can place persistent files it owns.
+     * @param type The type of files directory to return (e.g., "Music", "Download"). 
+     */
+    public static function getExternalFilesDir(type:String = null):Null<String> {
+        #if android
+        var func = JNICache.getStaticMethod("java/androidmanager/ContextManager$Storage", "getExternalFilesDir", "(Ljava/lang/String;)Ljava/lang/String;");
+        if (func != null) {
+            var path:Null<String> = func(type == null ? "" : type);
+            if (path != null) return path;
+        }
+        return internalFilesDir;
+        #else
+        return null;
+        #end
     }
 
     /**
@@ -141,8 +155,12 @@ class Context {
      * @param name The name of the database file.
      */
     public static function getDatabasePath(name:String):String {
+        #if android
         var func = JNICache.getStaticMethod("java/androidmanager/ContextManager$Storage", "getDatabasePath", "(Ljava/lang/String;)Ljava/lang/String;");
         return func != null ? func(name) : "";
+        #else
+        return "";
+        #end
     }
 
     /**
@@ -150,29 +168,26 @@ class Context {
      * @param name The name of the file.
      */
     public static function getFileStreamPath(name:String):String {
+        #if android
         var func = JNICache.getStaticMethod("java/androidmanager/ContextManager$Storage", "getFileStreamPath", "(Ljava/lang/String;)Ljava/lang/String;");
         return func != null ? func(name) : "";
-    }
-
-    /**
-     * Returns absolute paths to application-specific directories on all external storage devices.
-     * @return An Array of strings containing the paths.
-     */
-    public static function getExternalCacheDirs():Array<String> {
-        var func = JNICache.getStaticMethod("java/androidmanager/ContextManager$Storage", "getExternalCacheDirs", "()Ljava/lang/String;");
-        var res:String = func != null ? func() : "";
-        return res == "" ? [] : res.split(";");
+        #else
+        return "";
+        #end
     }
 
     /**
      * Returns absolute paths to application-specific directories on all external storage devices.
      * @param type The type of files directory to return.
-     * @return An Array of strings containing the paths.
      */
     public static function getExternalFilesDirs(type:String):Array<String> {
+        #if android
         var func = JNICache.getStaticMethod("java/androidmanager/ContextManager$Storage", "getExternalFilesDirs", "(Ljava/lang/String;)Ljava/lang/String;");
         var res:String = func != null ? func(type) : "";
         return res == "" ? [] : res.split(";");
+        #else
+        return [];
+        #end
     }
 }
 
@@ -183,16 +198,12 @@ class App {
 
     /**
      * Returns the name of this application's package.
-     * * @return The package name of the application (e.g., "com.example.app"), or "Unknown" if unavailable.
-     * @see https://developer.android.com/reference/android/content/pm/PackageManager
+     * @return The package name of the application (e.g., "com.example.app"), or "Unknown" if unavailable.
      */
-    public static function getPackageName():String {
+    public static var packageName(get, never):String;
+    private static function get_packageName():String {
         #if android
-        var func = JNICache.getStaticMethod(
-            "java/androidmanager/ContextManager$App",
-            "getPackageName",
-            "()Ljava/lang/String;"
-        );
+        var func = JNICache.getStaticMethod("java/androidmanager/ContextManager$App", "getPackageName", "()Ljava/lang/String;");
         return func != null ? func() : "Unknown";
         #else
         return "Unknown";

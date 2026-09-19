@@ -10,8 +10,20 @@ using StringTools;
 class Interface {
 
     /**
+     * Displays a native Android Toast message (popup).
+     * @param msg The message to display on the screen.
+     */
+    public static function showToast(msg:String):Void {
+        var jni:Dynamic = JNICache.getStaticMethod("java/androidmanager/Interface", "showToast", "(Ljava/lang/String;)V");
+        
+        if (jni != null) {
+            jni(msg);
+        }
+    }
+
+    /**
      * Displays a native Android alert dialog.
-     * * @param title The dialog title.
+     * @param title The dialog title.
      * @param msg The body text of the dialog.
      * @param btn The label text for the positive button (defaults to "OK").
      * @param onClose Optional callback function triggered when the button is pressed.
@@ -28,7 +40,7 @@ class Interface {
      * Displays a native Android confirmation dialog with two buttons.
      * This method bridges the request to the Android native side, maintaining 
      * Haxe-side callbacks for both confirmation and cancellation actions.
-     * * @param title The title text of the dialog window.
+     * @param title The title text of the dialog window.
      * @param msg The message body text.
      * @param yesLabel The label for the positive (confirm) button.
      * @param noLabel The label for the negative (cancel) button.
@@ -45,7 +57,7 @@ class Interface {
 
     /**
      * Navigates the user to a specific Android system settings menu.
-     * * @param action The name of the settings intent action. 
+     * @param action The name of the settings intent action. 
      * If it does not start with 'android.settings.', it will be prefixed automatically.
      * @param code The unique request code associated with the intent.
      */
