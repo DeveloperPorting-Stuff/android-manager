@@ -5,7 +5,7 @@ import androidmanager.jni.JNICache;
 #end
 
 /**
- * Gerencia eventos do ciclo de vida nativo do Android.
+ * Manages native Android lifecycle events.
  */
 class Lifecycle {
 
