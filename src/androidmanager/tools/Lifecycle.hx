@@ -65,7 +65,7 @@ class Lifecycle {
 }
 
 /**
- * Helper interno para ponte JNI entre Java e Haxe.
+ * Internal helper for the JNI bridge between Java and Haxe.
  */
 @:unreflective
 private class LifecycleCallback {
