@@ -8,7 +8,6 @@ import android.os.BatteryManager;
 import android.os.Build;
 import org.haxe.extension.Extension;
 import org.haxe.lime.HaxeObject;
-import android.os.BatteryManager;
 
 public class Battery extends Extension {
 

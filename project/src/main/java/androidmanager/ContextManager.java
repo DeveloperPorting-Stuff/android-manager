@@ -70,8 +70,16 @@ public class ContextManager {
 
         private static String formatFileArray(File[] dirs) {
             StringBuilder sb = new StringBuilder();
+            if (dirs == null)
+                return "";
+
             for (File f : dirs) {
-                if (f != null) sb.append(f.getAbsolutePath()).append(";");
+                if (f == null)
+                    continue;
+
+                if (sb.length() > 0)
+                    sb.append(";");
+                sb.append(f.getAbsolutePath());
             }
             return sb.toString();
         }

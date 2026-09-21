@@ -5,6 +5,10 @@ Changelog
 ------------------
 
 - Functions for logcat have been added
+- Added function to retrieve the "Android/data" directory from the app
+- Improvements to PermissionUtils.hx
+- Improvements to Context.hx
+- Added Lifecycle.hx
 
 1.0.1 (06/17/2026)
 ------------------
